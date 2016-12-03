@@ -16,33 +16,34 @@ search: true
 
 # Introduction
 
-Welcome to the Televiiom API!
+Welcome to Televisiom API documentation!
 
 ## Libraries
 
 ### Javascript library
+This the library that both the developers and end users need to include in their web pages.
 
 Features:
 
-* authorize
-* retrieve video from server
-* set poster for video
-* add/remove subtitle to/from video
+* Authorization
+* Upload and Retrieve videos
+* Set poster for video
+* Add/Remove subtitle to/from video
  
-For using televesiom javascript library you should include jQuery framework first:
+For using Televesiom javascript library, jQuery framework must be included first:
 
 `<script src="jquery.min.js"></script>`
 
-then include televisiom library:
+then include Televisiom library:
 
  `<script src="https://televisiom.ir/js/video-api.js"></script>`
  
-now you can use `VideoApi` class in your javascript codes.
+now it is possible to use `VideoApi` class in javascript codes.
 
 # Types
-
+All the objects that a developer may get involved in Televisom project, include Video, Poster, Thumbnail,Quality and Subtitle
 ## Video
-
+an object that represent the actual video file with all other related elements like poster, thumbnail...
 > Sample video object
 
 ```json
@@ -57,22 +58,23 @@ now you can use `VideoApi` class in your javascript codes.
 }
 ```
 
-A json object by this fields:
+A json representation of Video object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
-token | string | yes | the token of video that identifies video on server
-duration | integer | yes | duration of video in seconds
-poster | [poster object](#poster) | yes | select poster for video
-posters | array of [poster objects](#poster) | yes | candidates poster to choose
-thumbnails | array of [thumbnail objects](#thumbnail) | yes | thumbnails of video for preview
-qualities | array of [quality objects](#quality) | no | ...
-subtitles | array of [subtitle objects](#subtitle) | no | ...
+token | string | yes | The token of video that identifies video on server
+duration | integer | yes | Duration of video in seconds
+posters | array of [poster objects](#poster) | yes | Candidate posters from video to choose from and insert in 'poster' field
+poster | [poster object](#poster) | yes | Selected poster for video
+thumbnails | array of [thumbnail objects](#thumbnail) | yes | Thumbnails of video for preview
+qualities | array of [quality objects](#quality) | no | Different resolution qualities of video
+subtitles | array of [subtitle objects](#subtitle) | no | Different subtitles for video
 
 
 
 ## Poster
-
+The poster object specifies an image to be shown while the video is previewed, or until the user hits the play button.
+Each poster is a frame of video.
 > Sample poster object
 
 ```json
@@ -84,14 +86,14 @@ subtitles | array of [subtitle objects](#subtitle) | no | ...
 }
 ```
 
-A json object by this fields:
+A json representation of Poster object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
 id | integer | yes | the id of poster that identifies poster on server
 time | integer | yes | time of the extracted frame on video
-image | string | yes | url of poster file
-thumbnail | string | yes | url of poster's thumbnail file
+image | string | yes | full url of the poster file
+thumbnail | string | yes | full url of poster's thumbnail file
 
 ## Thumbnail
 
@@ -104,16 +106,21 @@ thumbnail | string | yes | url of poster's thumbnail file
   "image": "https://televisiom.ir/----.jpg"
 }
 ```
+Video thumbnails let viewers see a quick snapshot of your video.
+Each thumbnail is a from of the video. 
 
-A json object by this fields:
+A json representation of Thumbnail object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
 id | integer | yes | the id of thumbnail that identifies thumbnail on server
-time | integer | yes | time of the extracted frame on video
-image | string | yes | url of thumbnail file
+time | integer | yes | the exact time of the extracted frame from video
+image | string | yes | full url of thumbnail file
 
 ## Quality
+
+After each video in uploaded to the server, different qualities of that video will be
+generated and stored.
 
 > Sample quality object
 
@@ -125,15 +132,19 @@ image | string | yes | url of thumbnail file
 }
 ```
 
-A json object by this fields:
+A json representation of Quality object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
-width | integer | yes | the width of clip
-height | integer | yes | the height of clip
-file | string | yes | url of clip file
+width | integer | yes | the resolution width of this video quality
+height | integer | yes | the resolution height of this video quality
+file | string | yes | full url of this quality of video file.
 
 ## Subtitle
+
+Each video file may have different subtitles in different languages.
+For uploading a new subtitle for a video, the uploader must upload a .srt or .vtt file.
+After each subtitle upload the server will automatically generate the  missing .srt, .vtt and quotes.  
 
 > Sample subtitle object
 
@@ -146,16 +157,18 @@ file | string | yes | url of clip file
 }
 ```
 
-A json object by this fields:
+A json representation of subtitle object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
-language | [language object](#subtitle-language) | yes | the width of clip
-quotes | array of [quote object](#subtitle-quote) | yes | quotes of subtitle
-srt | string | yes | url of subtitle file by "SubRip text" syntax
-vtt | string | yes | url of subtitle file by "WebVTT" syntax
+language | [language object](#subtitle-language) | yes | information about language of the subtitle
+quotes | array of [quote object](#subtitle-quote) | yes | quotes of the subtitle
+srt | string | yes | full url of subtitle file by "SubRip text" syntax
+vtt | string | yes | full url of subtitle file by "WebVTT" syntax
 
 ### subtitle language
+
+
 
 > Sample subtitle language object
 
@@ -166,11 +179,11 @@ vtt | string | yes | url of subtitle file by "WebVTT" syntax
 }
 ```
 
-A json object by this fields:
+A json representation of subtitle language object looks like this:
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
-code | string | yes | ...
+code | string | yes | according to languages two letter representation(iso 639-1)
 name | string | yes | ...
 
 ### subtitle quote
@@ -185,7 +198,11 @@ name | string | yes | ...
 }
 ```
 
-A json object by this fields:
+Each sentences of a subtitle, consists of a text which is shown in a specific period of the video.
+After each subtitle upload for a video, server will automatically generate quotes for the video.
+It is most useful for developers who want to implement their own video player.
+A json representation of subtitle quote object looks like this:
+
 
 Name | Type | Always | Description
 -----| -----| ------ | -----------
